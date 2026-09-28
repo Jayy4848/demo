@@ -1,0 +1,60 @@
+<svg width="1000" height="600" viewBox="0 0 1000 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1000" height="600" fill="#f0f4f8"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
+      <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#e1e8ed" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1000" height="600" fill="url(#grid)"/>
+  
+  <!-- Robot silhouette -->
+  <g transform="translate(300, 150)">
+    <!-- Tracks -->
+    <rect x="50" y="280" width="300" height="50" rx="25" fill="#334155"/>
+    <rect x="60" y="290" width="280" height="30" rx="15" fill="#475569"/>
+    
+    <!-- Body -->
+    <rect x="100" y="150" width="200" height="130" rx="10" fill="#1e293b"/>
+    
+    <!-- Arm mechanism -->
+    <rect x="80" y="180" width="60" height="20" rx="5" fill="#64748b"/>
+    <circle cx="50" cy="190" r="25" fill="#334155"/>
+    <circle cx="50" cy="190" r="15" fill="#475569"/>
+    
+    <!-- Auger front -->
+    <polygon points="320,200 380,180 380,220" fill="#64748b"/>
+    <circle cx="340" cy="200" r="30" fill="#334155"/>
+    
+    <!-- Details -->
+    <rect x="120" y="170" width="50" height="30" rx="5" fill="#475569"/>
+    <rect x="230" y="170" width="50" height="30" rx="5" fill="#475569"/>
+    
+    <!-- Camera -->
+    <circle cx="270" cy="165" r="8" fill="#3b82f6"/>
+    
+    <!-- Hoses -->
+    <path d="M 200 150 Q 250 100 300 80" stroke="#64748b" stroke-width="8" fill="none"/>
+    <path d="M 220 150 Q 270 110 320 90" stroke="#64748b" stroke-width="6" fill="none"/>
+  </g>
+  
+  <!-- ATEX Badge -->
+  <g transform="translate(50, 50)">
+    <rect width="150" height="80" rx="8" fill="#FFD700"/>
+    <text x="75" y="35" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ATEX</text>
+    <text x="75" y="60" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1a1a1a" text-anchor="middle">ZONE 0</text>
+  </g>
+  
+  <!-- IECEx Badge -->
+  <g transform="translate(50, 150)">
+    <rect width="150" height="80" rx="8" fill="#0066cc"/>
+    <text x="75" y="45" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="white" text-anchor="middle">IECEx</text>
+    <text x="75" y="65" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">CERTIFIED</text>
+  </g>
+  
+  <!-- Placeholder text -->
+  <text x="500" y="480" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="#64748b" text-anchor="middle">ATEX Zone 0 Certified Robot</text>
+  <text x="500" y="520" font-family="Arial, sans-serif" font-size="18" fill="#94a3b8" text-anchor="middle">Replace with actual robot image: Save as "robot.jpg"</text>
+</svg>

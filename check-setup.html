@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Checker - ATEX Robot Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .checklist {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        
+        .checklist li {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            background: #f8fafc;
+            border-left: 4px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .checklist li.success {
+            background: #f0fdf4;
+            border-left-color: #22c55e;
+        }
+        
+        .checklist li.error {
+            background: #fef2f2;
+            border-left-color: #ef4444;
+        }
+        
+        .checklist li.warning {
+            background: #fffbeb;
+            border-left-color: #f59e0b;
+        }
+        
+        .icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .message {
+            flex-grow: 1;
+        }
+        
+        .message strong {
+            display: block;
+            margin-bottom: 0.25rem;
+            color: #1e293b;
+        }
+        
+        .message span {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #0066cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,204,0.3);
+        }
+        
+        .btn-success {
+            background: #22c55e;
+        }
+        
+        .btn-success:hover {
+            background: #16a34a;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .instructions {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        .instructions h3 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .instructions ol {
+            margin-left: 1.5rem;
+            color: #475569;
+            line-height: 1.8;
+        }
+        
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .instructions code {
+            background: #e2e8f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #dc2626;
+        }
+        
+        #imagePreview {
+            margin-top: 1rem;
+            max-width: 100%;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Setup Checker</h1>
+        <p class="subtitle">Let's verify your ATEX Robot website is ready to launch</p>
+        
+        <ul class="checklist" id="checklist">
+            <li id="check-html">
+                <span class="icon">⏳</span>
+                <div class="message">
+                    <strong>Checking HTML file...</strong>
+                    <span>Verifying index.html exists</span>
+                </div>
+            </li>
+            <li id="check-css">
+                <span class="icon">⏳</span>
+                <div class="message">
+                    <strong>Checking CSS file...</strong>
+                    <span>Verifying styles.css exists</span>
+                </div>
+            </li>
+            <li id="check-js">
+                <span class="icon">⏳</span>
+                <div class="message">
+                    <strong>Checking JavaScript file...</strong>
+                    <span>Verifying script.js exists</span>
+                </div>
+            </li>
+            <li id="check-robot">
+                <span class="icon">⏳</span>
+                <div class="message">
+                    <strong>Checking robot image...</strong>
+                    <span>Looking for robot.jpg</span>
+                </div>
+            </li>
+        </ul>
+        
+        <div id="result"></div>
+        
+        <div class="instructions" id="instructions" style="display: none;">
+            <h3>📝 How to Add Your Robot Image</h3>
+            <ol>
+                <li>Locate your ATEX Zone 0 Certified Robot image</li>
+                <li>Save it in this folder as: <code>robot.jpg</code></li>
+                <li>The image should be in the same directory as <code>index.html</code></li>
+                <li>Refresh this page to verify</li>
+            </ol>
+            <p style="margin-top: 1rem; color: #64748b; font-size: 0.9rem;">
+                <strong>Tip:</strong> You can use .jpg, .jpeg, or .png format. Just make sure to name it <code>robot.jpg</code>
+            </p>
+        </div>
+        
+        <img id="imagePreview" alt="Robot preview" />
+        
+        <div class="btn-group">
+            <a href="index.html" class="btn" id="launchBtn" style="display: none;">🚀 Launch Website</a>
+            <button onclick="location.reload()" class="btn" style="background: #64748b;">🔄 Check Again</button>
+        </div>
+    </div>
+    
+    <script>
+        async function checkFile(filename) {
+            try {
+                const response = await fetch(filename, { method: 'HEAD' });
+                return response.ok;
+            } catch (error) {
+                return false;
+            }
+        }
+        
+        function updateCheck(id, success, message) {
+            const element = document.getElementById(id);
+            element.className = success ? 'success' : 'error';
+            const icon = element.querySelector('.icon');
+            icon.textContent = success ? '✅' : '❌';
+            if (message) {
+                element.querySelector('span').textContent = message;
+            }
+        }
+        
+        async function runChecks() {
+            let allPassed = true;
+            
+            // Check HTML
+            const htmlExists = await checkFile('index.html');
+            updateCheck('check-html', htmlExists, htmlExists ? 'Found!' : 'Missing - Required file');
+            allPassed = allPassed && htmlExists;
+            
+            // Check CSS
+            const cssExists = await checkFile('styles.css');
+            updateCheck('check-css', cssExists, cssExists ? 'Found!' : 'Missing - Required file');
+            allPassed = allPassed && cssExists;
+            
+            // Check JS
+            const jsExists = await checkFile('script.js');
+            updateCheck('check-js', jsExists, jsExists ? 'Found!' : 'Missing - Required file');
+            allPassed = allPassed && jsExists;
+            
+            // Check robot image
+            const robotExists = await checkFile('robot.jpg');
+            updateCheck('check-robot', robotExists, robotExists ? 'Found! Ready to display' : 'Not found - Please add your image');
+            
+            // Show results
+            const resultDiv = document.getElementById('result');
+            const instructionsDiv = document.getElementById('instructions');
+            const launchBtn = document.getElementById('launchBtn');
+            const imagePreview = document.getElementById('imagePreview');
+            
+            if (allPassed && robotExists) {
+                resultDiv.innerHTML = `
+                    <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #22c55e; margin-top: 1rem;">
+                        <strong style="color: #15803d; font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">
+                            🎉 All Set! Your website is ready!
+                        </strong>
+                        <span style="color: #166534;">
+                            All files are in place. Click the button below to launch your ATEX Robot website.
+                        </span>
+                    </div>
+                `;
+                launchBtn.style.display = 'inline-block';
+                launchBtn.className = 'btn btn-success';
+                instructionsDiv.style.display = 'none';
+                
+                // Show image preview
+                imagePreview.src = 'robot.jpg';
+                imagePreview.style.display = 'block';
+            } else if (!robotExists) {
+                resultDiv.innerHTML = `
+                    <div style="background: #fffbeb; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #f59e0b; margin-top: 1rem;">
+                        <strong style="color: #b45309; font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">
+                            ⚠️ Almost There!
+                        </strong>
+                        <span style="color: #92400e;">
+                            Core files are ready, but you need to add your robot image to complete the setup.
+                        </span>
+                    </div>
+                `;
+                instructionsDiv.style.display = 'block';
+                launchBtn.style.display = 'inline-block';
+                launchBtn.textContent = '👀 Preview Without Image';
+            } else {
+                resultDiv.innerHTML = `
+                    <div style="background: #fef2f2; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ef4444; margin-top: 1rem;">
+                        <strong style="color: #dc2626; font-size: 1.2rem; display: block; margin-bottom: 0.5rem;">
+                            ❌ Setup Incomplete
+                        </strong>
+                        <span style="color: #991b1b;">
+                            Some required files are missing. Please ensure all files are in the correct location.
+                        </span>
+                    </div>
+                `;
+            }
+        }
+        
+        // Run checks when page loads
+        window.addEventListener('load', runChecks);
+    </script>
+</body>
+</html>
