@@ -1,9 +1,10 @@
 const navbar = document.querySelector('.navbar');
 const hero = document.querySelector('.hero');
-const heroBackground = document.querySelector('.hero-background');
+const heroBg = document.querySelector('.hero-bg');
 const floatingDemo = document.querySelector('.floating-demo');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', event => {
         const target = document.querySelector(anchor.getAttribute('href'));
@@ -15,6 +16,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// Navbar scroll state + hero parallax
 let scrollQueued = false;
 window.addEventListener('scroll', () => {
     if (scrollQueued) return;
@@ -24,14 +26,15 @@ window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
         navbar.classList.toggle('is-scrolled', scrollTop > 24);
 
-        if (!reducedMotion && hero && heroBackground && scrollTop < hero.offsetHeight) {
-            heroBackground.style.setProperty('--hero-shift', `${scrollTop * 0.12}px`);
+        if (!reducedMotion && hero && heroBg && scrollTop < hero.offsetHeight) {
+            heroBg.style.setProperty('--hero-shift', `${scrollTop * 0.12}px`);
         }
 
         scrollQueued = false;
     });
 }, { passive: true });
 
+// Viewer controls active state
 document.querySelectorAll('.viewer-controls .view-btn').forEach(link => {
     link.addEventListener('click', () => {
         document.querySelectorAll('.viewer-controls .view-btn').forEach(item => item.classList.remove('active'));
@@ -39,7 +42,7 @@ document.querySelectorAll('.viewer-controls .view-btn').forEach(link => {
     });
 });
 
-// Form submission handler
+// Contact form — opens email client with prefilled draft
 const contactForm = document.querySelector('.contact-form');
 
 function buildMailtoDraft(formData) {
@@ -61,10 +64,10 @@ function buildMailtoDraft(formData) {
 
 contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
-
     window.location.href = buildMailtoDraft(new FormData(this));
 });
 
+// Scroll reveal animations
 const revealTargets = document.querySelectorAll(
     '.section-header, .feature-card, .application-card, .stat-item, .product-viewer, .specifications, .contact-info, .contact-form'
 );
@@ -87,6 +90,7 @@ if ('IntersectionObserver' in window) {
     revealTargets.forEach(element => element.classList.add('is-visible'));
 }
 
+// Hide floating demo button when contact section is visible
 if (floatingDemo && 'IntersectionObserver' in window) {
     const contactObserver = new IntersectionObserver(([entry]) => {
         floatingDemo.classList.toggle('is-hidden', entry.isIntersecting);
@@ -99,7 +103,7 @@ function animateCounter(element, target, duration = 2000) {
     const start = 0;
     const increment = target / (duration / 16);
     let current = start;
-    
+
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
@@ -111,7 +115,6 @@ function animateCounter(element, target, duration = 2000) {
     }, 16);
 }
 
-// Trigger counter animation when stats section is visible
 const statsSection = document.querySelector('.stats');
 let statsAnimated = false;
 
@@ -119,12 +122,10 @@ const statsObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && !statsAnimated) {
             statsAnimated = true;
-            
-            // Animate the numeric counters
+
             const statNumbers = document.querySelectorAll('.stat-number');
             statNumbers.forEach((stat, index) => {
                 const text = stat.textContent;
-                // Only animate if it's a number
                 if (!isNaN(text) && text !== 'Zone-0' && text !== 'Zero') {
                     const target = parseInt(text);
                     animateCounter(stat, target, 2000 + (index * 200));
@@ -137,6 +138,3 @@ const statsObserver = new IntersectionObserver((entries) => {
 if (statsSection) {
     statsObserver.observe(statsSection);
 }
-
-// Console message
-console.log('%cATEX Zone 0 Certified Robot Website', 'color: #ed8737; font-size: 16px; font-weight: bold;');
